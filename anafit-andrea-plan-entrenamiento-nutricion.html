@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ana Fit — Plan de Entrenamiento y Nutrición de Andrea</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<script>try{var t=localStorage.getItem('af-theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
+<style>
+:root,[data-theme="night"]{
+  --bg:#08040e; --surface:#0f0718; --glass:rgba(255,255,255,.032); --glass-hv:rgba(255,255,255,.06);
+  --glass-bdr:rgba(255,255,255,.07); --accent:#f06ab4; --accent-soft:#fbb8da; --accent-dim:rgba(240,100,170,.1);
+  --gold:#c9a96e; --gold-dim:rgba(201,169,110,.1); --gold-bdr:rgba(201,169,110,.22);
+  --text:#f5e8f0; --text-2:#b890a8; --text-3:#5a3a50; --divider:rgba(255,255,255,.055);
+  --check:rgba(240,100,170,.15); --check-bdr:rgba(240,100,170,.3); --total-bg:rgba(240,100,170,.06); --total-bdr:rgba(240,100,170,.18);
+  --r:14px;
+}
+[data-theme="day"]{
+  --bg:#fdf4f8; --surface:#f5e6f0; --glass:rgba(255,255,255,.82); --glass-hv:rgba(255,255,255,.97);
+  --glass-bdr:rgba(194,24,91,.1); --accent:#c2185b; --accent-soft:#e91e8c; --accent-dim:rgba(194,24,91,.06);
+  --gold:#8d6e3a; --gold-dim:rgba(141,110,58,.07); --gold-bdr:rgba(141,110,58,.2);
+  --text:#1f0a14; --text-2:#7a4060; --text-3:#d4b0c4; --divider:rgba(0,0,0,.07);
+  --check:rgba(194,24,91,.06); --check-bdr:rgba(194,24,91,.18); --total-bg:rgba(194,24,91,.05); --total-bdr:rgba(194,24,91,.15);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{font-size:16px;scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-serif;font-size:.9375rem;line-height:1.75;-webkit-font-smoothing:antialiased;transition:background .3s,color .3s;overflow-x:hidden;}
+
+.orb{position:fixed;border-radius:50%;filter:blur(110px);pointer-events:none;z-index:0;}
+.orb-1{width:640px;height:640px;background:rgba(240,100,170,.11);top:-18%;left:-14%;animation:d1 26s ease-in-out infinite;}
+.orb-2{width:340px;height:340px;background:rgba(201,169,110,.08);bottom:5%;right:-8%;animation:d2 21s ease-in-out infinite;}
+.orb-3{width:260px;height:260px;background:rgba(160,100,220,.08);top:40%;right:12%;animation:d1 33s ease-in-out infinite reverse;}
+[data-theme="day"] .orb-1{background:rgba(240,100,170,.05);}
+[data-theme="day"] .orb-2{background:rgba(201,169,110,.04);}
+[data-theme="day"] .orb-3{background:rgba(160,100,220,.03);}
+@keyframes d1{0%,100%{transform:translate(0,0) scale(1);}45%{transform:translate(45px,-30px) scale(1.06);}75%{transform:translate(-20px,40px) scale(.96);}}
+@keyframes d2{0%,100%{transform:translate(0,0);}50%{transform:translate(-40px,-35px) scale(1.08);}}
+
+.wrap{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:0 2rem 8rem;}
+
+.theme-toggle{position:fixed;top:1.25rem;right:1.25rem;z-index:999;display:flex;align-items:center;gap:.5rem;
+  background:var(--glass);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid var(--glass-bdr);
+  border-radius:50px;padding:.375rem .875rem .375rem .625rem;cursor:pointer;transition:border-color .2s;font-size:.7rem;color:var(--text-2);}
+.theme-toggle:hover{border-color:var(--accent);}
+
+.hero{padding:5rem 0 3rem;}
+.eyebrow{font-size:.65rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);font-family:'SF Mono',monospace;margin-bottom:1.25rem;}
+.hero h1{font-family:'Playfair Display',Georgia,serif;font-size:clamp(2.25rem,7vw,3.5rem);font-weight:900;letter-spacing:-.02em;line-height:1.05;margin-bottom:1.25rem;}
+.hero h1 em{font-style:italic;font-weight:400;color:var(--accent);}
+.hero p{font-size:1rem;color:var(--text-2);font-weight:300;max-width:52ch;line-height:1.85;}
+.hero p strong{color:var(--text);font-weight:500;}
+
+.stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:.75rem;margin:2.5rem 0;}
+@media(max-width:600px){.stat-row{grid-template-columns:repeat(2,1fr);}}
+.stat-card{background:var(--glass);backdrop-filter:blur(12px);border:1px solid var(--glass-bdr);border-radius:var(--r);padding:1.125rem;text-align:center;}
+.stat-val{font-family:'Playfair Display',Georgia,serif;font-size:1.4rem;color:var(--accent);letter-spacing:-.02em;margin-bottom:.25rem;}
+.stat-lbl{font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-3);font-family:'SF Mono',monospace;}
+
+.section{padding:3rem 0;border-top:1px solid var(--divider);}
+.section-eyebrow{font-size:.575rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);font-family:'SF Mono',monospace;margin-bottom:1rem;}
+.section-title{font-family:'Playfair Display',Georgia,serif;font-size:1.75rem;font-weight:700;letter-spacing:-.015em;margin-bottom:.75rem;}
+.section-sub{font-size:.875rem;color:var(--text-2);font-weight:300;max-width:56ch;line-height:1.8;margin-bottom:2rem;}
+.section-sub strong{color:var(--text);font-weight:500;}
+
+/* Day cards */
+.day-card{background:var(--glass);backdrop-filter:blur(12px);border:1px solid var(--glass-bdr);border-radius:var(--r);padding:1.75rem;margin-bottom:1.25rem;}
+.day-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:.5rem;}
+.day-num{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);font-family:'SF Mono',monospace;}
+.day-title{font-family:'Playfair Display',Georgia,serif;font-size:1.25rem;color:var(--text);}
+.day-focus{font-size:.7rem;color:var(--text-3);font-style:italic;}
+.ex-list{display:flex;flex-direction:column;gap:.5rem;}
+.ex-row{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.7rem .875rem;background:var(--surface);border-radius:9px;border:1px solid var(--divider);}
+.ex-name{font-size:.85rem;color:var(--text);font-weight:500;}
+.ex-sets{font-size:.75rem;color:var(--accent);font-family:'SF Mono',monospace;white-space:nowrap;}
+.day-note{font-size:.75rem;color:var(--text-3);margin-top:1rem;line-height:1.7;font-style:italic;}
+
+/* Nutrition */
+.macro-row{display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem;margin-bottom:1.5rem;}
+@media(max-width:600px){.macro-row{grid-template-columns:1fr;}}
+.macro-card{background:var(--total-bg);border:1px solid var(--total-bdr);border-radius:var(--r);padding:1.25rem;text-align:center;}
+.macro-val{font-family:'Playfair Display',Georgia,serif;font-size:1.6rem;color:var(--accent);letter-spacing:-.02em;}
+.macro-lbl{font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-2);font-family:'SF Mono',monospace;margin-top:.35rem;}
+
+.check-list{display:flex;flex-direction:column;gap:.75rem;margin-top:1.75rem;}
+.check-item{display:flex;align-items:flex-start;gap:.875rem;font-size:.875rem;color:var(--text-2);font-weight:300;line-height:1.65;}
+.check-mark{width:18px;height:18px;border-radius:50%;background:var(--check);border:1px solid var(--check-bdr);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:.2rem;font-size:.6rem;color:var(--accent);}
+.check-item strong{color:var(--text);font-weight:500;}
+
+.timing-bar{background:var(--glass);border:1px solid var(--glass-bdr);border-radius:var(--r);padding:1.25rem 1.5rem;margin-bottom:1.5rem;font-size:.85rem;color:var(--text-2);}
+.timing-bar strong{color:var(--text);}
+
+.note-box{background:var(--accent-dim);border-left:2px solid var(--accent);border-radius:0 10px 10px 0;padding:1.125rem 1.375rem;font-size:.85rem;color:var(--text-2);line-height:1.75;margin-top:1.5rem;}
+.note-box strong{color:var(--text);}
+
+.closing{padding:3.5rem 0 2rem;text-align:center;border-top:1px solid var(--divider);}
+.closing p{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-size:1.15rem;color:var(--text);max-width:48ch;margin:0 auto 1rem;line-height:1.6;}
+.closing .sign{font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3);font-family:'SF Mono',monospace;}
+</style>
+</head>
+<body>
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="orb orb-3"></div>
+
+<button class="theme-toggle" onclick="toggleTheme()" aria-label="Cambiar tema">
+  <span id="toggleLabel">Noche</span>
+</button>
+
+<div class="wrap">
+
+  <div class="hero">
+    <div class="eyebrow">Ana Fit VIP · Fase 1, Semanas 1–4</div>
+    <h1>El Plan de Andrea.<br><em>Hecho para ti.</em></h1>
+    <p>Piernas y glúteos que se sientan poderosos. Una cintura en la que puedas ver el trabajo. Brazos que de verdad sean fuertes. Eso es lo que me dijiste que querías, así que eso es exactamente para lo que está hecho esto. Cuatro días a la semana, una hora o menos, usando lo que ya tienes en casa.</p>
+  </div>
+
+  <div class="stat-row">
+    <div class="stat-card"><div class="stat-val">4x</div><div class="stat-lbl">Días / Semana</div></div>
+    <div class="stat-card"><div class="stat-val">60</div><div class="stat-lbl">Min / Sesión</div></div>
+    <div class="stat-card"><div class="stat-val">AM</div><div class="stat-lbl">Hora Preferida</div></div>
+    <div class="stat-card"><div class="stat-val">1 / 3</div><div class="stat-lbl">Fase</div></div>
+  </div>
+
+  <div class="section">
+    <div class="section-eyebrow">Estructura de Entrenamiento</div>
+    <div class="section-title">Tus Cuatro Días</div>
+    <div class="section-sub">Dos días enfocados en la parte inferior para las piernas y glúteos que buscas, un día de cuerpo superior + core para brazos fuertes y una cintura definida, y un día de cuerpo completo para unirlo todo. Equipo doméstico y peso corporal — mancuernas, una banda si tienes, y tú.</div>
+
+    <div class="day-card">
+      <div class="day-head">
+        <div><div class="day-num">Día 1</div><div class="day-title">Parte Inferior — Glúteos y Piernas</div></div>
+        <div class="day-focus">~55 min</div>
+      </div>
+      <div class="ex-list">
+        <div class="ex-row"><span class="ex-name">Puente de Glúteos con Marcha</span><span class="ex-sets">3 × 12 cada pierna</span></div>
+        <div class="ex-row"><span class="ex-name">Sentadilla Goblet (mancuerna)</span><span class="ex-sets">4 × 10</span></div>
+        <div class="ex-row"><span class="ex-name">Peso Muerto Rumano (mancuerna)</span><span class="ex-sets">3 × 12</span></div>
+        <div class="ex-row"><span class="ex-name">Sentadilla Búlgara</span><span class="ex-sets">3 × 10 cada pierna</span></div>
+        <div class="ex-row"><span class="ex-name">Caminata Lateral con Banda</span><span class="ex-sets">3 × 15 pasos cada dirección</span></div>
+        <div class="ex-row"><span class="ex-name">Sentadilla en Pared — final</span><span class="ex-sets">3 × 30–45 seg</span></div>
+      </div>
+      <div class="day-note">5 min de calentamiento (sentadillas con peso corporal, círculos de cadera) antes, 5 min de estiramiento después.</div>
+    </div>
+
+    <div class="day-card">
+      <div class="day-head">
+        <div><div class="day-num">Día 2</div><div class="day-title">Cuerpo Superior y Core</div></div>
+        <div class="day-focus">~50 min</div>
+      </div>
+      <div class="ex-list">
+        <div class="ex-row"><span class="ex-name">Flexión Inclinada</span><span class="ex-sets">3 × 10–12</span></div>
+        <div class="ex-row"><span class="ex-name">Press de Hombro con Mancuerna</span><span class="ex-sets">3 × 10</span></div>
+        <div class="ex-row"><span class="ex-name">Remo con Mancuerna Inclinado</span><span class="ex-sets">3 × 12</span></div>
+        <div class="ex-row"><span class="ex-name">Curl de Bíceps</span><span class="ex-sets">3 × 12</span></div>
+        <div class="ex-row"><span class="ex-name">Fondos de Tríceps (silla)</span><span class="ex-sets">3 × 10</span></div>
+        <div class="ex-row"><span class="ex-name">Plancha</span><span class="ex-sets">3 × 30–45 seg</span></div>
+        <div class="ex-row"><span class="ex-name">Dead Bug</span><span class="ex-sets">3 × 10 cada lado</span></div>
+      </div>
+      <div class="day-note">Círculos de brazos + jalones de banda para calentar. Aquí es donde vive el trabajo de "cintura definida" — el control en cada repetición importa más que la velocidad.</div>
+    </div>
+
+    <div class="day-card">
+      <div class="day-head">
+        <div><div class="day-num">Día 3</div><div class="day-title">Parte Inferior — Glúteos y Piernas (Volumen)</div></div>
+        <div class="day-focus">~55 min</div>
+      </div>
+      <div class="ex-list">
+        <div class="ex-row"><span class="ex-name">Hip Thrust (mancuerna o peso corporal)</span><span class="ex-sets">4 × 12</span></div>
+        <div class="ex-row"><span class="ex-name">Sentadilla Sumo (mancuerna)</span><span class="ex-sets">3 × 12</span></div>
+        <div class="ex-row"><span class="ex-name">Zancada Curtsy</span><span class="ex-sets">3 × 10 cada pierna</span></div>
+        <div class="ex-row"><span class="ex-name">Puente de Glúteo a Una Pierna</span><span class="ex-sets">3 × 12 cada pierna</span></div>
+        <div class="ex-row"><span class="ex-name">Step-Up con Peso</span><span class="ex-sets">3 × 10 cada pierna</span></div>
+        <div class="ex-row"><span class="ex-name">Elevación de Talones</span><span class="ex-sets">3 × 15</span></div>
+      </div>
+      <div class="day-note">Ángulos diferentes al Día 1 a propósito — los glúteos responden a la variedad, y este es el día en que empujamos un poco más fuerte.</div>
+    </div>
+
+    <div class="day-card">
+      <div class="day-head">
+        <div><div class="day-num">Día 4</div><div class="day-title">Circuito de Cuerpo Completo + Core</div></div>
+        <div class="day-focus">~50 min</div>
+      </div>
+      <div class="ex-list">
+        <div class="ex-row"><span class="ex-name">Circuito × 3 rondas:</span><span class="ex-sets"></span></div>
+        <div class="ex-row"><span class="ex-name">Sentadilla con Press</span><span class="ex-sets">12 reps</span></div>
+        <div class="ex-row"><span class="ex-name">Remo Renegade</span><span class="ex-sets">10 cada lado</span></div>
+        <div class="ex-row"><span class="ex-name">Zancada Reversa</span><span class="ex-sets">10 cada pierna</span></div>
+        <div class="ex-row"><span class="ex-name">Mountain Climbers</span><span class="ex-sets">20 total</span></div>
+        <div class="ex-row"><span class="ex-name">Plancha Lateral</span><span class="ex-sets">20–30 seg cada lado</span></div>
+        <div class="ex-row"><span class="ex-name">Caminata suave — final</span><span class="ex-sets">15 min</span></div>
+      </div>
+      <div class="day-note">Descanso mínimo entre ejercicios, descansa 1 min entre rondas. Este día se trata de sentirte fuerte y moverte bien, no de llegar al límite.</div>
+    </div>
+
+    <div class="note-box">
+      <strong>Movimientos a evitar:</strong> ninguno marcado en tu formulario. Si algo se siente agudo, raro o simplemente mal en tu cuerpo, detente y avísale a Ana — cambiar un movimiento siempre está bien, forzar el dolor no es la meta aquí.
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-eyebrow">Nutrición</div>
+    <div class="section-title">Combustible para la Meta</div>
+    <div class="section-sub">Ya estás comiendo limpio — sin azúcar añadida, carbohidratos procesados mínimos, una ventana de alimentación sólida. Construir músculo solo significa agregar un poco más de combustible sobre lo que ya estás haciendo, especialmente proteína.</div>
+
+    <div class="macro-row">
+      <div class="macro-card"><div class="macro-val">~1,900</div><div class="macro-lbl">Calorías / día</div></div>
+      <div class="macro-card"><div class="macro-val">~90g</div><div class="macro-lbl">Proteína / día</div></div>
+      <div class="macro-card"><div class="macro-val">2.5–3L</div><div class="macro-lbl">Agua / día</div></div>
+    </div>
+
+    <div class="timing-bar">
+      <strong>Punto de partida, no una regla fija.</strong> Estos números son un estimado basado en tu formulario, no en datos rastreados — nunca has hecho tracking antes, y está bien. Ana los va a ajustar según cómo respondas realmente en las próximas semanas. La meta ahorita es dirección, no precisión.
+    </div>
+
+    <div class="check-list">
+      <div class="check-item"><div class="check-mark">✓</div><span><strong>Mantén tu ventana de alimentación</strong> — primera comida 8–9am, última comida 6–7pm te está funcionando bien, no hay necesidad de cambiarlo.</span></div>
+      <div class="check-item"><div class="check-mark">✓</div><span><strong>Proteína en cada comida</strong> — huevo, pollo, pescado (cuando lo comas), yogurt griego, o un batido de proteína si una comida queda ligera. Esta es la palanca principal para el músculo que quieres construir.</span></div>
+      <div class="check-item"><div class="check-mark">✓</div><span><strong>No le tengas miedo a los carbohidratos alrededor del entrenamiento</strong> — arroz, papa, fruta, y sí, tu pan de masa madre. Alimentan el músculo que estás construyendo, no trabajan en tu contra.</span></div>
+      <div class="check-item"><div class="check-mark">✓</div><span><strong>Sigue evitando el azúcar añadida</strong> — ya lo estás haciendo bien. No hay que cambiar nada.</span></div>
+      <div class="check-item"><div class="check-mark">✓</div><span><strong>Sube un poco el agua</strong> — de 1.5–2L a 2.5–3L, especialmente en días de entrenamiento. La recuperación y el rendimiento dependen de eso.</span></div>
+      <div class="check-item"><div class="check-mark">✓</div><span><strong>Sin alcohol</strong> — ya estás donde tiene que estar. Mantente ahí.</span></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-eyebrow">Hábitos y Responsabilidad</div>
+    <div class="section-title">Haciendo que Esto Se Quede</div>
+    <div class="section-sub">Le dijiste a Ana que entrenar sola se vuelve aburrido rápido, y que una semana mala cambia cuando alguien está en tu esquina. Eso está construido en el programa a propósito.</div>
+
+    <div class="check-list">
+      <div class="check-item"><div class="check-mark">✓</div><span><strong>Check-ins los domingos</strong> — cada semana, entrega tu check-in en el Hub. Ana lee cada uno y te da retroalimentación real, no una respuesta genérica.</span></div>
+      <div class="check-item"><div class="check-mark">✓</div><span><strong>Acceso directo por WhatsApp</strong> — en un día difícil sin ganas de nada, escríbele a Ana antes de saltarte el entrenamiento. Para eso está ahí.</span></div>
+      <div class="check-item"><div class="check-mark">✓</div><span><strong>Sesión de estrategia, Semana 2</strong> — tu primera sesión 1 a 1 con Ana para revisar cómo se sintieron las primeras dos semanas y ajustar lo que haga falta.</span></div>
+      <div class="check-item"><div class="check-mark">✓</div><span><strong>Revisión completa de Fase 1, Semana 4</strong> — un check-in completo de entrenamiento, nutrición y cómo te sientes, y luego la Fase 2 se construye alrededor de exactamente en dónde estás.</span></div>
+    </div>
+  </div>
+
+  <div class="closing">
+    <p>"Piernas y glúteos grandes, cintura definida, brazos fuertes." Tú ya me dijiste lo que querías — yo solo construí el mapa. Vamos por ello.</p>
+    <div class="sign">— Ana</div>
+  </div>
+
+</div>
+
+<script>
+function toggleTheme(){
+  var h=document.documentElement,n=h.getAttribute('data-theme')==='day'?'night':'day';
+  h.setAttribute('data-theme',n);
+  var l=document.getElementById('toggleLabel');if(l)l.textContent=n==='day'?'Día':'Noche';
+  try{localStorage.setItem('af-theme',n);}catch(e){}
+}
+(function(){
+  var t=document.documentElement.getAttribute('data-theme')||'night';
+  var l=document.getElementById('toggleLabel');if(l)l.textContent=t==='day'?'Día':'Noche';
+})();
+</script>
+</body>
+</html>
