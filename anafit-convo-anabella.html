@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ana Fit — Conversation Navigator: Anabella</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<script>try{var t=localStorage.getItem('af-theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
+<style>
+:root,[data-theme="night"]{
+  --bg:#08040e; --surface:#0f0718; --glass:rgba(255,255,255,.032); --glass-hv:rgba(255,255,255,.06);
+  --glass-bdr:rgba(255,255,255,.07); --accent:#f06ab4; --accent-soft:#fbb8da; --accent-dim:rgba(240,100,170,.1);
+  --gold:#c9a96e; --gold-dim:rgba(201,169,110,.1); --gold-bdr:rgba(201,169,110,.22);
+  --text:#f5e8f0; --text-2:#b890a8; --text-3:#5a3a50; --divider:rgba(255,255,255,.055);
+  --good:#7dd8a0;
+}
+[data-theme="day"]{
+  --bg:#fdf4f8; --surface:#f5e6f0; --glass:rgba(255,255,255,.82); --glass-hv:rgba(255,255,255,.97);
+  --glass-bdr:rgba(194,24,91,.1); --accent:#c2185b; --accent-soft:#e91e8c; --accent-dim:rgba(194,24,91,.06);
+  --gold:#8d6e3a; --gold-dim:rgba(141,110,58,.07); --gold-bdr:rgba(141,110,58,.2);
+  --text:#1f0a14; --text-2:#7a4060; --text-3:#d4b0c4; --divider:rgba(0,0,0,.07);
+  --good:#1f8a4c;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{font-size:16px;scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-serif;font-size:.9375rem;line-height:1.75;-webkit-font-smoothing:antialiased;transition:background .3s,color .3s;}
+.wrap{max-width:760px;margin:0 auto;padding:2.5rem 1.75rem 6rem;}
+
+.theme-toggle{position:fixed;top:1.25rem;right:1.25rem;z-index:999;display:flex;align-items:center;gap:.5rem;
+  background:var(--glass);backdrop-filter:blur(16px);border:1px solid var(--glass-bdr);border-radius:50px;
+  padding:.375rem .875rem .375rem .625rem;cursor:pointer;transition:border-color .2s;font-size:.7rem;color:var(--text-2);}
+.theme-toggle:hover{border-color:var(--accent);}
+
+.eyebrow{font-size:.65rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);font-family:'SF Mono',monospace;margin-bottom:1rem;}
+h1{font-family:'Playfair Display',Georgia,serif;font-size:clamp(1.75rem,5vw,2.5rem);font-weight:700;letter-spacing:-.02em;margin-bottom:.5rem;}
+.sub{color:var(--text-2);font-size:.9rem;max-width:52ch;margin-bottom:2.5rem;}
+
+.section{margin-bottom:2.75rem;}
+.section-label{font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);font-family:'SF Mono',monospace;margin-bottom:1rem;display:flex;align-items:center;gap:.5rem;}
+.section-label::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--accent);flex-shrink:0;}
+
+/* Their message */
+.their-msg{background:var(--glass);border:1px solid var(--glass-bdr);border-radius:16px;border-top-left-radius:4px;
+  padding:1.25rem 1.5rem;font-size:.875rem;color:var(--text);font-style:italic;line-height:1.75;}
+.their-msg .who{font-style:normal;font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-3);
+  font-family:'SF Mono',monospace;margin-bottom:.5rem;display:block;}
+
+.read{background:var(--gold-dim);border:1px solid var(--gold-bdr);border-radius:12px;padding:1.125rem 1.375rem;
+  font-size:.825rem;color:var(--text-2);line-height:1.7;margin-top:1rem;}
+.read strong{color:var(--text);}
+
+/* Reply cards */
+.reply-card{background:var(--surface);border:1px solid var(--glass-bdr);border-radius:16px;padding:1.5rem;margin-bottom:1rem;position:relative;}
+.reply-lang{font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);font-family:'SF Mono',monospace;
+  font-weight:700;margin-bottom:.75rem;display:flex;align-items:center;justify-content:space-between;}
+.reply-text{font-size:.9rem;line-height:1.8;color:var(--text);white-space:pre-line;}
+.copy-btn{background:var(--accent-dim);border:1px solid var(--gold-bdr);border-radius:8px;color:var(--accent);
+  font-size:.65rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:.35rem .75rem;cursor:pointer;
+  font-family:'SF Mono',monospace;transition:all .2s;}
+.copy-btn:hover{background:var(--accent);color:#fff;}
+.copy-btn.copied{background:var(--good);border-color:var(--good);color:#fff;}
+
+/* Branch cards for anticipated responses */
+.branch{background:var(--glass);border:1px solid var(--glass-bdr);border-radius:14px;padding:1.25rem 1.5rem;margin-bottom:.875rem;}
+.branch-if{font-size:.75rem;font-weight:700;color:var(--gold);margin-bottom:.75rem;}
+.branch-if span{color:var(--text-2);font-weight:400;font-style:italic;}
+.branch-replies{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;}
+@media(max-width:640px){.branch-replies{grid-template-columns:1fr;}}
+.branch-reply{background:var(--surface);border:1px solid var(--divider);border-radius:10px;padding:.875rem 1rem;font-size:.8rem;line-height:1.65;}
+.branch-reply .lang-tag{font-size:.575rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-3);font-family:'SF Mono',monospace;margin-bottom:.4rem;display:block;}
+
+.note{background:var(--accent-dim);border-left:2px solid var(--accent);border-radius:0 10px 10px 0;padding:1rem 1.25rem;
+  font-size:.8rem;color:var(--text-2);line-height:1.7;margin-top:.5rem;}
+.note strong{color:var(--text);}
+</style>
+</head>
+<body>
+<button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+  <span id="toggleLabel">Night</span>
+</button>
+
+<div class="wrap">
+  <div class="eyebrow">Ana Fit — Conversation Navigator</div>
+  <h1>Getting Anabella to the call</h1>
+  <p class="sub">She's warm, she's engaged, and she just told you exactly what she needs — a plan built around her, not just the exercises. This is a soft close, not a hard sell.</p>
+
+  <div class="section">
+    <div class="section-label">Where the conversation is</div>
+    <div class="their-msg">
+      <span class="who">Anabella</span>
+      "Hi Anabella, how are you, sweetheart? No, don't worry at all, I actually only use WhatsApp too, but it occurred to me to write here for some reason, I don't know, haha! And honestly, yes, I'm interested in seeing if you can help me a bit more 🙏 I'm taking the results calmly, but I think I need to put in some extra effort with the exercises, at least at the beginning."
+    </div>
+    <div class="read">
+      <strong>What's actually happening:</strong> She's already said yes to more help — that's the whole game won. But you don't know her actual goal yet, or what "extra effort" really means to her. Find that out first. The call ask lands ten times harder when it's a response to something specific she told you, not a generic pitch.
+    </div>
+  </div>
+
+  <div class="note" style="margin-bottom:2.5rem;">
+    <strong>Pace this.</strong> Three separate messages, not one wall of text. Send Step 1, wait for her real answer, then move to Step 2. Let her finish talking before you steer anywhere. This should read like a conversation, not a script.
+  </div>
+
+  <div class="section">
+    <div class="section-label">Step 1 — Ask, don't pitch</div>
+    <div class="reply-card">
+      <div class="reply-lang">English <button class="copy-btn" onclick="copyReply(this,'en1')">Copy</button></div>
+      <div class="reply-text" id="en1">I'm really glad you wrote 🩷 Before anything else, I want to actually understand what's going on with you. What's your main goal right now — like, what would make the biggest difference in your life if it changed?
+
+And when you say you need extra effort with the exercises, what's the part that feels hardest? Not knowing what to do, staying consistent, finding the time, something else?</div>
+    </div>
+    <div class="reply-card">
+      <div class="reply-lang">Español <button class="copy-btn" onclick="copyReply(this,'es1')">Copiar</button></div>
+      <div class="reply-text" id="es1">Me alegra mucho que me hayas escrito 🩷 Antes que nada, quiero entender bien qué está pasando contigo. ¿Cuál es tu meta principal ahorita? O sea, ¿qué es lo que más diferencia haría en tu vida si cambiara?
+
+Y cuando dices que necesitas más esfuerzo con los ejercicios, ¿qué parte se siente más difícil? ¿No saber qué hacer, la constancia, encontrar el tiempo, algo más?</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Step 2 — Once she answers, go one layer deeper</div>
+    <div class="read" style="margin-top:0;margin-bottom:1.25rem;">Whatever goal she names, don't move on yet. Ask one more "why" — that's where the real motivation lives, and it's what you'll reference when you bridge to the call. Pick whichever fits what she actually said.</div>
+
+    <div class="branch">
+      <div class="branch-if">If she mentions weight/body change</div>
+      <div class="branch-replies">
+        <div class="branch-reply"><span class="lang-tag">English</span>"That makes sense. And why does that matter to you right now — what would it actually mean for you to get there?"</div>
+        <div class="branch-reply"><span class="lang-tag">Español</span>"Tiene sentido. ¿Y por qué te importa eso ahorita? ¿Qué significaría para ti realmente lograrlo?"</div>
+      </div>
+    </div>
+    <div class="branch">
+      <div class="branch-if">If she mentions energy / feeling better</div>
+      <div class="branch-replies">
+        <div class="branch-reply"><span class="lang-tag">English</span>"I hear that a lot, and I get why. What does having that energy actually look like for you, day to day?"</div>
+        <div class="branch-reply"><span class="lang-tag">Español</span>"Eso lo escucho mucho, y entiendo por qué. ¿Cómo se vería tener esa energía en tu día a día?"</div>
+      </div>
+    </div>
+    <div class="branch">
+      <div class="branch-if">If she mentions confidence</div>
+      <div class="branch-replies">
+        <div class="branch-reply"><span class="lang-tag">English</span>"Where do you feel like that confidence is missing most right now?"</div>
+        <div class="branch-reply"><span class="lang-tag">Español</span>"¿En dónde sientes que más te falta esa confianza ahorita?"</div>
+      </div>
+    </div>
+    <div class="branch">
+      <div class="branch-if">Fallback — anything else, or unclear</div>
+      <div class="branch-replies">
+        <div class="branch-reply"><span class="lang-tag">English</span>"What made now the moment you decided to reach out about it?"</div>
+        <div class="branch-reply"><span class="lang-tag">Español</span>"¿Qué hizo que decidieras escribirme justo ahora?"</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Step 3 — Now bridge to the call</div>
+    <div class="read" style="margin-top:0;margin-bottom:1.25rem;">Fill in the bracket with her actual words from Step 2 — not a paraphrase, her words. That's what makes this land as personal instead of a pitch.</div>
+    <div class="reply-card">
+      <div class="reply-lang">English <button class="copy-btn" onclick="copyReply(this,'en2')">Copy</button></div>
+      <div class="reply-text" id="en2">That makes complete sense. And honestly, [her goal/why] isn't something exercises alone fix — it's about having the right plan and real support built around it. That's exactly what I want to build with you.
+
+Let's hop on a quick call this week so I can put that together with you personally. What's your week looking like — any day better than others?</div>
+    </div>
+    <div class="reply-card">
+      <div class="reply-lang">Español <button class="copy-btn" onclick="copyReply(this,'es2')">Copiar</button></div>
+      <div class="reply-text" id="es2">Tiene todo el sentido. Y la verdad, [su meta/por qué] no es algo que los ejercicios solos resuelvan — se trata de tener el plan correcto y apoyo real construido a tu alrededor. Eso es justo lo que quiero armar contigo.
+
+Hagamos una llamada rápida esta semana para poner eso en marcha juntas, de manera personal. ¿Cómo se ve tu semana? ¿Hay algún día que te quede mejor?</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">If she gives you a day/time</div>
+    <div class="branch">
+      <div class="branch-if">She's booking — lock it in, don't leave it vague</div>
+      <div class="branch-replies">
+        <div class="branch-reply">
+          <span class="lang-tag">English</span>
+          "Perfect, [day] works great. Let's do [time] your time — I'll send the call link right before. So excited to dig into this with you 🩷"
+        </div>
+        <div class="branch-reply">
+          <span class="lang-tag">Español</span>
+          "Perfecto, [día] me funciona genial. Hagámoslo a las [hora] tu hora — te mando el link justo antes. Estoy súper emocionada de platicar esto contigo 🩷"
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Step 4 — If she hesitates</div>
+
+    <div class="branch">
+      <div class="branch-if">"I'm really busy this week" <span>— don't push, offer flexibility</span></div>
+      <div class="branch-replies">
+        <div class="branch-reply">
+          <span class="lang-tag">English</span>
+          "Totally get it — no pressure at all. Even 15 minutes works, it doesn't need to be long. Whenever you catch a breath, just tell me and I'll make it work."
+        </div>
+        <div class="branch-reply">
+          <span class="lang-tag">Español</span>
+          "Te entiendo perfecto, sin presión. Con 15 minutitos alcanza, no tiene que ser largo. En cuanto tengas un respiro, me dices y ahí me acomodo."
+        </div>
+      </div>
+    </div>
+
+    <div class="branch">
+      <div class="branch-if">"How much does it cost?" <span>— don't quote price in text, protect the call</span></div>
+      <div class="branch-replies">
+        <div class="branch-reply">
+          <span class="lang-tag">English</span>
+          "Great question — I want to walk you through it properly so it actually makes sense for where you're at, not just throw a number at you. That's exactly what the call is for. Still good for [day/time]?"
+        </div>
+        <div class="branch-reply">
+          <span class="lang-tag">Español</span>
+          "Buena pregunta — prefiero explicarte bien todo en la llamada para que tenga sentido según tu situación, y no solo mandarte un número así nada más. Para eso es la llamada. ¿Seguimos con [día/hora]?"
+        </div>
+      </div>
+    </div>
+
+    <div class="branch">
+      <div class="branch-if">"Let me think about it" <span>— reconnect to her own words, keep the door open</span></div>
+      <div class="branch-replies">
+        <div class="branch-reply">
+          <span class="lang-tag">English</span>
+          "Of course, take your time. Just remember — you're the one who reached out, and you already know the exercises alone aren't the full answer. I'll be here whenever you're ready 🩷"
+        </div>
+        <div class="branch-reply">
+          <span class="lang-tag">Español</span>
+          "Claro que sí, tómate tu tiempo. Solo recuerda — tú fuiste quien me escribió, y ya sabes que los ejercicios solos no son la respuesta completa. Aquí estaré cuando estés lista 🩷"
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="note">
+    <strong>Tone check:</strong> Warm, direct, personal — never salesy. She's already said yes to more help; your only job here is turning that into a specific day and time, not convincing her all over again.
+  </div>
+</div>
+
+<script>
+function toggleTheme(){
+  var h=document.documentElement,n=h.getAttribute('data-theme')==='day'?'night':'day';
+  h.setAttribute('data-theme',n);
+  var l=document.getElementById('toggleLabel');if(l)l.textContent=n==='day'?'Day':'Night';
+  try{localStorage.setItem('af-theme',n);}catch(e){}
+}
+(function(){
+  var t=document.documentElement.getAttribute('data-theme')||'night';
+  var l=document.getElementById('toggleLabel');if(l)l.textContent=t==='day'?'Day':'Night';
+})();
+
+function copyReply(btn,id){
+  var text=document.getElementById(id).textContent;
+  navigator.clipboard.writeText(text).then(function(){
+    var orig=btn.textContent;
+    btn.textContent='Copied';
+    btn.classList.add('copied');
+    setTimeout(function(){btn.textContent=orig;btn.classList.remove('copied');},1500);
+  }).catch(function(){});
+}
+</script>
+</body>
+</html>

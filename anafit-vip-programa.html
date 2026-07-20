@@ -1,0 +1,927 @@
+
+<title>Coaching VIP 1:1 — Programa Insignia Ana Fit</title>
+<style>
+  :root {
+    --bg: #090807;
+    --surface: #111009;
+    --surface-2: #1a1710;
+    --accent: #f97316;
+    --accent-soft: #fdba74;
+    --accent-dim: rgba(249, 115, 22, 0.08);
+    --accent-border: rgba(249, 115, 22, 0.18);
+    --text: #f5f0e8;
+    --text-muted: #8a8070;
+    --text-faint: #403c30;
+    --border: #201e14;
+    --border-mid: #302c1e;
+    --check: #7dcf95;
+    --check-dim: rgba(125, 207, 149, 0.08);
+    --mono: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  }
+
+  @media (prefers-color-scheme: light) {
+    :root {
+      --bg: #fdfaf5;
+      --surface: #f5ede0;
+      --surface-2: #ede3d0;
+      --accent: #c2540a;
+      --accent-soft: #ea7c2a;
+      --accent-dim: rgba(194, 84, 10, 0.07);
+      --accent-border: rgba(194, 84, 10, 0.18);
+      --text: #1c1710;
+      --text-muted: #6e6050;
+      --text-faint: #c0b49e;
+      --border: #e0d4be;
+      --border-mid: #cdbfa4;
+      --check: #2a7a45;
+      --check-dim: rgba(42, 122, 69, 0.07);
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --bg: #090807; --surface: #111009; --surface-2: #1a1710;
+    --accent: #f97316; --accent-soft: #fdba74;
+    --accent-dim: rgba(249,115,22,.08); --accent-border: rgba(249,115,22,.18);
+    --text: #f5f0e8; --text-muted: #8a8070; --text-faint: #403c30;
+    --border: #201e14; --border-mid: #302c1e;
+    --check: #7dcf95; --check-dim: rgba(125,207,149,.08);
+  }
+
+  :root[data-theme="light"] {
+    --bg: #fdfaf5; --surface: #f5ede0; --surface-2: #ede3d0;
+    --accent: #c2540a; --accent-soft: #ea7c2a;
+    --accent-dim: rgba(194,84,10,.07); --accent-border: rgba(194,84,10,.18);
+    --text: #1c1710; --text-muted: #6e6050; --text-faint: #c0b49e;
+    --border: #e0d4be; --border-mid: #cdbfa4;
+    --check: #2a7a45; --check-dim: rgba(42,122,69,.07);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 16px; scroll-behavior: smooth; }
+  body {
+    background: var(--bg); color: var(--text);
+    font-family: -apple-system, 'Segoe UI', system-ui, sans-serif;
+    font-size: 0.9375rem; line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── Header ── */
+  .program-header {
+    border-bottom: 1px solid var(--border);
+    padding: 3.5rem 2rem 3rem;
+    max-width: 760px;
+    margin: 0 auto;
+  }
+
+  .brand-eyebrow {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+  }
+
+  .program-title {
+    font-size: 2.25rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+    color: var(--text);
+    text-wrap: balance;
+    margin-bottom: 1rem;
+  }
+
+  .program-sub {
+    font-size: 1rem;
+    color: var(--text-muted);
+    max-width: 54ch;
+    line-height: 1.65;
+    margin-bottom: 1.875rem;
+  }
+
+  .program-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.625rem;
+  }
+
+  .stat-chip {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--accent-dim);
+    border: 1px solid var(--accent-border);
+    border-radius: 2px;
+    padding: 0.35rem 0.75rem;
+    font-size: 0.8125rem;
+    color: var(--accent-soft);
+    font-weight: 500;
+  }
+
+  .stat-chip-dot {
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex-shrink: 0;
+  }
+
+  /* ── Main ── */
+  main {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 2rem 6rem;
+  }
+
+  /* ── Includes ── */
+  .includes-block {
+    padding: 2.5rem 0 2rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .sec-eyebrow {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    margin-bottom: 0.875rem;
+  }
+
+  .sec-title {
+    font-size: 1.125rem;
+    font-weight: 650;
+    color: var(--text);
+    letter-spacing: -0.015em;
+    margin-bottom: 1.25rem;
+  }
+
+  .includes-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+  }
+
+  .include-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.75rem 0.875rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  .check-box {
+    width: 16px; height: 16px;
+    border: 1.5px solid var(--check);
+    border-radius: 2px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0.1rem;
+    background: var(--check-dim);
+  }
+
+  .check-mark {
+    width: 8px; height: 6px;
+    border-left: 1.5px solid var(--check);
+    border-bottom: 1.5px solid var(--check);
+    transform: rotate(-45deg) translate(0.5px, -1px);
+  }
+
+  /* ── Phases ── */
+  .phases-block {
+    padding: 2.5rem 0 2rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .phase-track {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.625rem;
+  }
+
+  .phase-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .phase-head {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface-2);
+  }
+
+  .phase-tag {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.3rem;
+  }
+
+  .phase-name {
+    font-size: 0.9375rem;
+    font-weight: 650;
+    color: var(--text);
+    letter-spacing: -0.01em;
+  }
+
+  .phase-months {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-top: 0.15rem;
+  }
+
+  .phase-body {
+    padding: 0.875rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .phase-item {
+    font-size: 0.8375rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .phase-item::before {
+    content: '';
+    display: block;
+    width: 3px; height: 3px;
+    border-radius: 50%;
+    background: var(--accent);
+    margin-top: 0.6rem;
+    flex-shrink: 0;
+    opacity: 0.5;
+  }
+
+  /* ── Pillars ── */
+  .pillars-block { padding: 2.5rem 0 2rem; border-bottom: 1px solid var(--border); }
+
+  .pillar {
+    margin-bottom: 0.625rem;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .pillar-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.125rem 1.25rem;
+    background: var(--surface-2);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .pillar-icon { font-size: 1.125rem; flex-shrink: 0; line-height: 1; margin-top: 0.1rem; }
+  .pillar-title-group { flex: 1; }
+
+  .pillar-label {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    opacity: 0.65;
+    margin-bottom: 0.2rem;
+  }
+
+  .pillar-title {
+    font-size: 1rem;
+    font-weight: 650;
+    color: var(--text);
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+  }
+
+  .pillar-body {
+    padding: 1.125rem 1.25rem;
+    background: var(--surface);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+  }
+
+  .pillar-col-label {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    margin-bottom: 0.625rem;
+  }
+
+  .pillar-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+
+  .pillar-list li {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .pillar-list li::before {
+    content: '→';
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--accent);
+    opacity: 0.5;
+    flex-shrink: 0;
+    margin-top: 0.08rem;
+  }
+
+  .pillar-note {
+    grid-column: 1 / -1;
+    padding: 0.75rem 1rem;
+    background: var(--accent-dim);
+    border: 1px solid var(--accent-border);
+    border-radius: 2px;
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    font-style: italic;
+  }
+
+  /* ── Events ── */
+  .events-block {
+    padding: 2.5rem 0 2rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .events-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.625rem;
+    margin-bottom: 1rem;
+  }
+
+  .event-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .event-card-head {
+    padding: 0.75rem 1rem;
+    background: var(--surface-2);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+  }
+
+  .event-badge {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: var(--accent-dim);
+    border: 1px solid var(--accent-border);
+    border-radius: 2px;
+    padding: 0.15rem 0.5rem;
+    white-space: nowrap;
+  }
+
+  .event-card-title {
+    font-size: 0.9rem;
+    font-weight: 650;
+    color: var(--text);
+  }
+
+  .event-card-body {
+    padding: 0.875rem 1rem;
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  /* ── Orlando ── */
+  .orlando-card {
+    border: 1px solid var(--accent-border);
+    border-radius: 3px;
+    overflow: hidden;
+    background: var(--accent-dim);
+  }
+
+  .orlando-head {
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid var(--accent-border);
+    display: flex;
+    align-items: center;
+    gap: 0.875rem;
+  }
+
+  .orlando-title {
+    font-size: 1rem;
+    font-weight: 650;
+    color: var(--text);
+  }
+
+  .orlando-sub {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 0.1rem;
+  }
+
+  .orlando-body {
+    padding: 1.125rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .orlando-item {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    line-height: 1.55;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .orlando-item::before {
+    content: '📍';
+    font-size: 0.75rem;
+    flex-shrink: 0;
+    margin-top: 0.05rem;
+  }
+
+  /* ── Community ── */
+  .community-block {
+    padding: 2.5rem 0 2rem;
+  }
+
+  .community-card {
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    overflow: hidden;
+    background: var(--surface);
+    margin-bottom: 0.625rem;
+  }
+
+  .community-head {
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 0.875rem;
+    background: var(--surface-2);
+  }
+
+  .community-title {
+    font-size: 1rem;
+    font-weight: 650;
+    color: var(--text);
+  }
+
+  .community-body {
+    padding: 1.125rem 1.25rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+  }
+
+  .community-col-label {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    margin-bottom: 0.625rem;
+  }
+
+  .community-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+
+  .community-list li {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    line-height: 1.55;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .community-list li::before {
+    content: '✦';
+    font-size: 0.625rem;
+    color: var(--accent);
+    opacity: 0.7;
+    margin-top: 0.25rem;
+    flex-shrink: 0;
+  }
+
+  .doc-footer {
+    margin-top: 3rem;
+    padding: 1.5rem 0 0;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+  }
+
+  @media (max-width: 600px) {
+    .program-header, main { padding-left: 1.25rem; padding-right: 1.25rem; }
+    .program-title { font-size: 1.625rem; }
+    .includes-grid, .phase-track, .events-grid, .community-body { grid-template-columns: 1fr; }
+    .pillar-body { grid-template-columns: 1fr; }
+  }
+</style>
+
+<div class="program-header">
+  <div class="brand-eyebrow">Ana Fit — Oferta Principal</div>
+  <h1 class="program-title">Coaching VIP 1:1 con Ana</h1>
+  <p class="program-sub">Una transformación de 3 meses para cualquier mujer, en cualquier país, en cualquier etapa de su vida. Fuerza, nutrición, mentalidad y comunidad — todo bajo un mismo programa.</p>
+  <div class="program-stats">
+    <div class="stat-chip"><div class="stat-chip-dot"></div>3 Meses</div>
+    <div class="stat-chip"><div class="stat-chip-dot"></div>1:1 Personalizado</div>
+    <div class="stat-chip"><div class="stat-chip-dot"></div>Cualquier Edad y País</div>
+    <div class="stat-chip"><div class="stat-chip-dot"></div>Nutrición + Entrenamiento + Mentalidad</div>
+    <div class="stat-chip"><div class="stat-chip-dot"></div>Comunidad Activa</div>
+    <div class="stat-chip"><div class="stat-chip-dot"></div>Presencial en Orlando</div>
+  </div>
+</div>
+
+<main>
+
+  <!-- Qué incluye -->
+  <div class="includes-block">
+    <div class="sec-eyebrow">Qué Incluye</div>
+    <h2 class="sec-title">Todo lo que viene en el programa</h2>
+    <div class="includes-grid">
+      <div class="include-item">
+        <div class="check-box"><div class="check-mark"></div></div>
+        3 meses de coaching personalizado 1:1 con Ana
+      </div>
+      <div class="include-item">
+        <div class="check-box"><div class="check-mark"></div></div>
+        Plan de nutrición construido alrededor de tu comida real — ningún alimento está prohibido
+      </div>
+      <div class="include-item">
+        <div class="check-box"><div class="check-mark"></div></div>
+        Levantamiento de pesas y evaluaciones de movimiento con correcciones de forma
+      </div>
+      <div class="include-item">
+        <div class="check-box"><div class="check-mark"></div></div>
+        Sistemas de manejo del tiempo diseñados para tu vida real
+      </div>
+      <div class="include-item">
+        <div class="check-box"><div class="check-mark"></div></div>
+        Trabajo de mentalidad e identidad: autosabotaje, perfeccionismo, consistencia
+      </div>
+      <div class="include-item">
+        <div class="check-box"><div class="check-mark"></div></div>
+        Eventos semanales o quincenales de seguimiento, progreso y motivación grupal
+      </div>
+      <div class="include-item">
+        <div class="check-box"><div class="check-mark"></div></div>
+        Comunidad de mujeres comprometidas — apoyo real, no un grupo silencioso
+      </div>
+      <div class="include-item">
+        <div class="check-box"><div class="check-mark"></div></div>
+        Clases presenciales con Ana en Orlando (para quienes vivan en el área)
+      </div>
+    </div>
+  </div>
+
+  <!-- Fases -->
+  <div class="phases-block">
+    <div class="sec-eyebrow">Cronograma del Programa</div>
+    <h2 class="sec-title">3 meses — 3 fases</h2>
+    <div class="phase-track">
+
+      <div class="phase-card">
+        <div class="phase-head">
+          <div class="phase-tag">Fase 1</div>
+          <div class="phase-name">Fundación</div>
+          <div class="phase-months">Mes 1</div>
+        </div>
+        <div class="phase-body">
+          <div class="phase-item">Evaluación completa de salud, hábitos y estilo de vida</div>
+          <div class="phase-item">Evaluación de movimiento y correcciones de forma base</div>
+          <div class="phase-item">Plan de nutrición inicial calibrado a tu cuerpo y rutina</div>
+          <div class="phase-item">Identificar los 3 principales patrones de autosabotaje</div>
+          <div class="phase-item">Construir los hábitos diarios no negociables</div>
+          <div class="phase-item">Primera integración a la comunidad y eventos grupales</div>
+        </div>
+      </div>
+
+      <div class="phase-card">
+        <div class="phase-head">
+          <div class="phase-tag">Fase 2</div>
+          <div class="phase-name">Construir</div>
+          <div class="phase-months">Mes 2</div>
+        </div>
+        <div class="phase-body">
+          <div class="phase-item">Sobrecarga progresiva introducida — más peso, mejor técnica</div>
+          <div class="phase-item">Nutrición refinada según resultados y vida real</div>
+          <div class="phase-item">Trabajo de identidad más profundo — en quién te estás convirtiendo</div>
+          <div class="phase-item">Sistemas de tiempo probados ante imprevistos y eventos</div>
+          <div class="phase-item">Pensamiento todo-o-nada activamente desmantelado</div>
+          <div class="phase-item">Primeros logros físicos medibles</div>
+        </div>
+      </div>
+
+      <div class="phase-card">
+        <div class="phase-head">
+          <div class="phase-tag">Fase 3</div>
+          <div class="phase-name">Integrar</div>
+          <div class="phase-months">Mes 3</div>
+        </div>
+        <div class="phase-body">
+          <div class="phase-item">Programación avanzada — ciclos de fuerza completos</div>
+          <div class="phase-item">Nutrición en piloto automático — sin depender del conteo</div>
+          <div class="phase-item">Identidad consolidada — tú controlas el sistema, no al revés</div>
+          <div class="phase-item">Planes para viajes, eventos y compromisos sociales</div>
+          <div class="phase-item">Celebración de resultados en comunidad</div>
+          <div class="phase-item">Plan de continuación o graduación construido</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Pilares -->
+  <div class="pillars-block">
+    <div class="sec-eyebrow">Pilares del Programa</div>
+    <h2 class="sec-title">En qué trabajamos realmente</h2>
+
+    <!-- Pilar 1: Nutrición -->
+    <div class="pillar">
+      <div class="pillar-header">
+        <div class="pillar-icon">🍽️</div>
+        <div class="pillar-title-group">
+          <div class="pillar-label">Pilar 1</div>
+          <div class="pillar-title">Reset Metabólico y Nutrición</div>
+        </div>
+      </div>
+      <div class="pillar-body">
+        <div>
+          <div class="pillar-col-label">Lo que construimos</div>
+          <ul class="pillar-list">
+            <li>Metas calóricas basadas en tu metabolismo, no en una calculadora genérica</li>
+            <li>Estructura de macros que incluye la comida que ya comes — ningún alimento está prohibido</li>
+            <li>Déficit sostenible — pierde grasa sin eliminar lo que disfrutas ni cocinar por separado</li>
+            <li>Estrategias reales para comer bien en cualquier contexto: casa, trabajo, viajes, reuniones</li>
+            <li>Hábitos que funcionan sin contar calorías obsesivamente</li>
+          </ul>
+        </div>
+        <div>
+          <div class="pillar-col-label">Lo que eliminamos</div>
+          <ul class="pillar-list">
+            <li>La culpa alrededor de la comida — comer bien no significa sufrir</li>
+            <li>Planes todo-o-nada que se caen con el primer evento social</li>
+            <li>Dietas extremas que no encajan con tu vida, tu país o tu cultura</li>
+            <li>La obsesión con contar — sistemas que funcionan incluso sin un diario de comida</li>
+            <li>Dependencia de suplementos — primero la comida, siempre</li>
+          </ul>
+        </div>
+        <div class="pillar-note">
+          "No importa de dónde seas ni cómo cocines en casa — construimos el plan alrededor de tu vida real, no al revés."
+        </div>
+      </div>
+    </div>
+
+    <!-- Pilar 2: Entrenamiento -->
+    <div class="pillar">
+      <div class="pillar-header">
+        <div class="pillar-icon">🏋️</div>
+        <div class="pillar-title-group">
+          <div class="pillar-label">Pilar 2</div>
+          <div class="pillar-title">Levantamiento de Pesas y Movimiento</div>
+        </div>
+      </div>
+      <div class="pillar-body">
+        <div>
+          <div class="pillar-col-label">Estructura del entrenamiento</div>
+          <ul class="pillar-list">
+            <li>Evaluación de movimiento completa al inicio — identificar desequilibrios y limitaciones</li>
+            <li>Programación progresiva de fuerza: sentadilla, bisagra, empuje, jalón, carga</li>
+            <li>Correcciones de forma en video — cada levantamiento mayor revisado antes de aumentar peso</li>
+            <li>Adaptado a tu nivel actual — sin importar si es tu primera vez o llevas años entrenando</li>
+            <li>Programas que caben en 45-60 minutos, 3-4 veces por semana</li>
+          </ul>
+        </div>
+        <div>
+          <div class="pillar-col-label">Lo que cambia</div>
+          <ul class="pillar-list">
+            <li>Dejas de creer que el cardio es la única respuesta</li>
+            <li>Levantas pesado y te sientes capaz por primera vez</li>
+            <li>Tu composición corporal cambia aunque la báscula no se mueva</li>
+            <li>Puedes entrenar en viajes, en casa, en el gym — donde sea</li>
+            <li>El entrenamiento se convierte en un hábito, no en una obligación</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pilar 3: Sistemas de vida -->
+    <div class="pillar">
+      <div class="pillar-header">
+        <div class="pillar-icon">📅</div>
+        <div class="pillar-title-group">
+          <div class="pillar-label">Pilar 3</div>
+          <div class="pillar-title">Sistemas de Vida y Manejo del Tiempo</div>
+        </div>
+      </div>
+      <div class="pillar-body">
+        <div>
+          <div class="pillar-col-label">Sistemas que construimos</div>
+          <ul class="pillar-list">
+            <li>Bloqueo de calendario alrededor de tu trabajo, familia y compromisos reales</li>
+            <li>Meal prep que se adapta a tu hogar y tu rutina semanal</li>
+            <li>Protocolos de viaje: cómo entrenar y comer en aeropuertos, hoteles y fuera de casa</li>
+            <li>Manual de eventos: cumpleaños, vacaciones, reuniones — sin perder el progreso</li>
+            <li>Manejo de energía: cuándo entrenar, cuándo descansar, cómo recuperarte sin culpa</li>
+          </ul>
+        </div>
+        <div>
+          <div class="pillar-col-label">Construido alrededor de tu vida real</div>
+          <ul class="pillar-list">
+            <li>Trabajo — cualquier horario, cualquier industria</li>
+            <li>Hijos o responsabilidades familiares</li>
+            <li>Pareja — con apoyo o sin él, construimos alrededor de eso</li>
+            <li>Compromisos sociales y obligaciones culturales</li>
+            <li>Tu ciudad, tu país, tus circunstancias específicas</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pilar 4: Mentalidad -->
+    <div class="pillar">
+      <div class="pillar-header">
+        <div class="pillar-icon">🧠</div>
+        <div class="pillar-title-group">
+          <div class="pillar-label">Pilar 4</div>
+          <div class="pillar-title">Mentalidad e Identidad</div>
+        </div>
+      </div>
+      <div class="pillar-body">
+        <div>
+          <div class="pillar-col-label">Lo que abordamos</div>
+          <ul class="pillar-list">
+            <li><strong style="color:var(--text);">Autosabotaje</strong> — los comportamientos inconscientes que deshacen el progreso justo cuando está funcionando</li>
+            <li><strong style="color:var(--text);">Todo o nada</strong> — un entrenamiento perdido se convierte en un mes perdido. Rompemos este patrón para siempre</li>
+            <li><strong style="color:var(--text);">Perfeccionismo</strong> — la creencia de que si no puedes hacerlo perfecto, para qué hacerlo</li>
+            <li><strong style="color:var(--text);">Síndrome del impostor</strong> — la sensación de que alguien como tú no merece estar saludable o tomar espacio</li>
+            <li><strong style="color:var(--text);">Ponerse al último</strong> — la tendencia a poner a todos los demás primero, siempre</li>
+          </ul>
+        </div>
+        <div>
+          <div class="pillar-col-label">Lo que cambia</div>
+          <ul class="pillar-list">
+            <li>Dejas de identificarte como "alguien que siempre se cae"</li>
+            <li>La salud se convierte en parte de quién eres, no en un proyecto que estás haciendo</li>
+            <li>Dejas de pedir permiso para cuidarte a ti misma</li>
+            <li>La consistencia reemplaza a la motivación como la fuerza impulsora</li>
+            <li>Les muestras a las personas que te rodean cómo es una relación sana con el cuerpo</li>
+          </ul>
+        </div>
+        <div class="pillar-note">
+          "No necesitas más información — necesitas una nueva historia sobre ti misma. Ahí es donde ocurre el trabajo real."
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Eventos -->
+  <div class="events-block">
+    <div class="sec-eyebrow">Seguimiento y Motivación</div>
+    <h2 class="sec-title">Eventos semanales y quincenales</h2>
+
+    <div class="events-grid">
+      <div class="event-card">
+        <div class="event-card-head">
+          <div class="event-badge">Semanal</div>
+          <div class="event-card-title">Check-in de Progreso</div>
+        </div>
+        <div class="event-card-body">
+          Revisión breve en grupo donde cada mujer reporta su semana — qué funcionó, qué no, y qué ajustamos. Sin juicio. Pura honestidad y dirección.
+        </div>
+      </div>
+
+      <div class="event-card">
+        <div class="event-card-head">
+          <div class="event-badge">Quincenal</div>
+          <div class="event-card-title">Sesión de Motivación y Estrategia</div>
+        </div>
+        <div class="event-card-body">
+          Sesión más profunda cada dos semanas: repaso de métricas, conversación de mentalidad, ajustes de plan. También el espacio para celebrar victorias en comunidad.
+        </div>
+      </div>
+
+      <div class="event-card">
+        <div class="event-card-head">
+          <div class="event-badge">Cuando se necesite</div>
+          <div class="event-card-title">Mensajes de Seguimiento 1:1</div>
+        </div>
+        <div class="event-card-body">
+          Acceso directo a Ana entre sesiones — para ajustes rápidos, preguntas, o cuando una semana se pone difícil y necesitas que alguien te recuerde por qué empezaste.
+        </div>
+      </div>
+
+      <div class="event-card">
+        <div class="event-card-head">
+          <div class="event-badge">Cierre de Mes</div>
+          <div class="event-card-title">Revisión de Fase</div>
+        </div>
+        <div class="event-card-body">
+          Al final de cada mes, revisamos los resultados de la fase, ajustamos el plan para el siguiente mes y documentamos el progreso — fotos, medidas, energía, mentalidad.
+        </div>
+      </div>
+    </div>
+
+    <!-- Orlando -->
+    <div class="orlando-card">
+      <div class="orlando-head">
+        <div class="pillar-icon">🌴</div>
+        <div>
+          <div class="orlando-title">Si vives en Orlando — clases presenciales con Ana</div>
+          <div class="orlando-sub">Para las estudiantes locales que quieran entrenar en persona</div>
+        </div>
+      </div>
+      <div class="orlando-body">
+        <div class="orlando-item">Clases presenciales disponibles para quienes estén en el área de Orlando, Florida</div>
+        <div class="orlando-item">Entrenamiento cara a cara con Ana — misma programación del programa, con la ventaja de correcciones en vivo</div>
+        <div class="orlando-item">Ideal para quienes aprenden mejor en persona o quieren ese nivel extra de conexión directa</div>
+        <div class="orlando-item">Se coordina por separado — pregunta a Ana para disponibilidad y horarios</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Comunidad -->
+  <div class="community-block">
+    <div class="sec-eyebrow">Comunidad</div>
+    <h2 class="sec-title">La Comunidad Ana Fit</h2>
+
+    <div class="community-card">
+      <div class="community-head">
+        <div class="pillar-icon">🤝</div>
+        <div class="community-title">Para cualquier mujer, en cualquier parte del mundo</div>
+      </div>
+      <div class="community-body">
+        <div>
+          <div class="community-col-label">Lo que hace diferente esta comunidad</div>
+          <ul class="community-list">
+            <li>Un grupo pequeño e intencional de mujeres comprometidas — no un grupo de miles donde nadie se conoce</li>
+            <li>Mujeres en diferentes etapas del mismo camino — alguien que lleva un mes adelante es la prueba de que funciona</li>
+            <li>Cero edad mínima o máxima — el programa se adapta a los 20, los 40 o los 60</li>
+            <li>Internacional — no importa el país, el idioma de trabajo es el progreso</li>
+            <li>Responsabilidad real — en este grupo no desapareces sin que nadie lo note</li>
+          </ul>
+        </div>
+        <div>
+          <div class="community-col-label">Lo que pasa dentro</div>
+          <ul class="community-list">
+            <li>Check-ins semanales donde todas se ven y se apoyan</li>
+            <li>Celebración de victorias — pequeñas y grandes</li>
+            <li>Conversaciones de mentalidad, no solo de físico</li>
+            <li>Un espacio seguro para decir "esta semana estuvo difícil" y recibir apoyo real</li>
+            <li>Conexiones que van más allá del programa — relaciones que duran</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="doc-footer">
+    <span>Ana Fit — Referencia Interna del Programa</span>
+    <span>Coaching VIP 1:1 · 3 Meses</span>
+  </footer>
+
+</main>
